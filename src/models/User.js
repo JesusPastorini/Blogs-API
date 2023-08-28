@@ -1,7 +1,3 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -26,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     underscored: true,
     tableName: 'users',
+    timestamps:false,
   });
   return User;
-  };
+  }
