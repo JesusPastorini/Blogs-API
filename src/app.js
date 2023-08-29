@@ -1,4 +1,5 @@
 const express = require('express');
+const { userControler } = require('./controllers');
 
 // ...
 
@@ -11,7 +12,7 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.post('/login');
+app.post('/login', userControler.login);
 // ...
 
 // É importante exportar a constante `app`,
