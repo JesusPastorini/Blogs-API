@@ -13,6 +13,7 @@ app.get('/', (_request, response) => {
 app.use(express.json());
 
 app.post('/login', userControler.login);
+app.post('/user', userControler.addUser);
 // ...
 
 // É importante exportar a constante `app`,
