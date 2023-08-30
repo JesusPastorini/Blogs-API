@@ -16,7 +16,7 @@ const login = async (req, res) => {
     return res.status(200).json({ token });
   };
 
-  const addUser = async (req, res) => {
+const addUser = async (req, res) => {
     const { email, displayName, image, password } = req.body;
 
     if (displayName.length < 8) {
@@ -51,8 +51,28 @@ const getUsers = async (req, res) => {
   }
 };
 
+const getUserById = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
+
+    const { id, displayName, email, image } = user;
+    const userData = { id, displayName, email, image };
+
+    return res.status(200).json(userData);
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
   module.exports = {
     login,
     addUser,
     getUsers,
+    getUserById,
   };
