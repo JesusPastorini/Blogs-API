@@ -1,18 +1,17 @@
-const { User } = require('../models');
+const validateAddUser = async (displayName, email, password) => {
+  if (displayName.length < 8) {
+    return { data: { message: '"displayName" length must be at least 8 characters long' } };
+  }
+  if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    return { data: { message: '"email" must be a valid email' } };
+  }
+  if (password.length < 6) {
+    return { data: { message: '"password" length must be at least 6 characters long' } };
+  }
 
-const serviceAddUser = async (displayName, email, password, image) => {
-    // Check if email already exists
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-        throw new Error('User already registered');
-    }
-
-    // Create user
-    const newUser = await User.create({ displayName, email, password, image });
-
-    return newUser;
+  return { data: null };
 };
 
 module.exports = {
-    serviceAddUser,
+  validateAddUser,
 };

@@ -3,22 +3,16 @@ const validaToken = require('../middleware/token');
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-   
     if (!email || !password) {
-        return res.status(400).json({ message: 'Some required fields are missing' });
-      }
-
+      return res.status(400).json({ message: 'Some required fields are missing' });
+    }
     const getByUser = await User.findOne({ where: { email, password } });
-    if (!getByUser) {
-        return res.status(400).json({ message: 'Invalid fields' });
-      }
+    if (!getByUser) return res.status(400).json({ message: 'Invalid fields' });
     const token = validaToken.token(getByUser);
     return res.status(200).json({ token });
   };
-
 const addUser = async (req, res) => {
     const { email, displayName, image, password } = req.body;
-
     if (displayName.length < 8) {
         return res.status(400).json({
           message: '"displayName" length must be at least 8 characters long' });
@@ -32,44 +26,32 @@ const addUser = async (req, res) => {
     }
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) return res.status(409).json({ message: 'User already registered' });
-
     const newUser = await User.create({ displayName, email, password, image });
     const token = validaToken.token(newUser);
-
     return res.status(201).json({ token });
 };
-
 const getUsers = async (req, res) => {
   try {
       const users = await User.findAll({
           attributes: ['id', 'displayName', 'email', 'image'],
       });
-
       return res.status(200).json(users);
   } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
   }
 };
-
 const getUserById = async (req, res) => {
   const userId = req.params.id;
-
   try {
     const user = await User.findOne({ where: { id: userId } });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User does not exist' });
-    }
-
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
     const { id, displayName, email, image } = user;
     const userData = { id, displayName, email, image };
-
     return res.status(200).json(userData);
   } catch (error) {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
-
   module.exports = {
     login,
     addUser,
