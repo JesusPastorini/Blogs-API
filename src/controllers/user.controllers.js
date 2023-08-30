@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const validaToken = require('../middleware/validateToken');
+const validaToken = require('../middleware/token');
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -39,7 +39,20 @@ const login = async (req, res) => {
     return res.status(201).json({ token });
 };
 
+const getUsers = async (req, res) => {
+  try {
+      const users = await User.findAll({
+          attributes: ['id', 'displayName', 'email', 'image'],
+      });
+
+      return res.status(200).json(users);
+  } catch (error) {
+      return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
   module.exports = {
     login,
     addUser,
+    getUsers,
   };
