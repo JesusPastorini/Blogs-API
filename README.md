@@ -6,7 +6,7 @@ O projeto API de Blogs consiste no desenvolvimento de uma API RESTful em Node.js
 
 ## 📸 Tabela de relacionamento
 
-![apiblogs](public/login.gif)
+![apiblogs](src/der.png)
 
 ## 🛠️ Tecnologias e Habilidades
 
