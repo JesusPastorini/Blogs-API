@@ -1,6 +1,6 @@
 # 🚀 Projeto: API de Blogs
 
-## ℹ️ Sobre o Projeto
+## Sobre o Projeto
 
 O projeto API de Blogs consiste no desenvolvimento de uma API RESTful em Node.js, utilizando o framework Express.js e o ORM Sequelize, para criar, ler, atualizar e deletar (CRUD) posts de um blog. Além disso, a API gerencia usuários e categorias para os posts. A aplicação segue os princípios do REST e é conectada a um banco de dados MySQL.
 
